@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -e
+
+# don't change these 4 lines
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+TRAINING=$1;
+INPUT=$2;
+OUTPUT=$3;
+
+# you should change the lines below
+
+# prepare the training data
+$SCRIPTDIR/preprocess.py < $TRAINING | $SCRIPTDIR/unknown.py > $SCRIPTDIR/tmpfile
+# you should probably do something with the file you just wrote
+# (and you may not want to call it tmpfile). But in this stub code I'm just going
+# to create a grammar without paying attention to the input
+$SCRIPTDIR/demogrammar.py > $SCRIPTDIR/demogrammar
+
+# run your parser on your input and save to your output. The provided parser is
+# strictly right branching (cf. slides) and gets 12.4 f on dev. It ignores the grammar
+
+$SCRIPTDIR/rbranch.py -i $INPUT -o $OUTPUT
